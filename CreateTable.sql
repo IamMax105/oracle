@@ -1,7 +1,7 @@
 CREATE TABLE PUPIL (
     PupilID NVARCHAR2(9) PRIMARY KEY,
     PupilName NVARCHAR2(30) NOT NULL,
-    ClassID CHAR(5) NOT NULL,
+    ClassID NVARCHAR2(5) NOT NULL,
     DateOfBirth DATE NOT NULL,
     Gender NVARCHAR2(4) NOT NULL,
     Ethnicity NVARCHAR2(5),
@@ -44,14 +44,14 @@ CREATE TABLE PUPIL_REWARDS (
     AwardTitle NVARCHAR2(30) NOT NULL,
     FOREIGN KEY (BoardID) REFERENCES SCHOOL_BOARD(BoardID),
     FOREIGN KEY (PupilID) REFERENCES PUPIL(PupilID),
-    CONSTRAINT chk_BoardID CHECK (BoardID LIKE 'B___'), 
-    CONSTRAINT chk_PupilID CHECK (PupilID LIKE 'P_____') 
+    CONSTRAINT chk_PR_BoardID CHECK (BoardID LIKE 'B___'), 
+    CONSTRAINT chk_PR_PupilID CHECK (PupilID LIKE 'P_____') 
 );
 
 
 CREATE TABLE ACADEMIC_RESULTS (
     ResultID NVARCHAR2(9) PRIMARY KEY ,
-    PupilID NVARCHAR2(9) PRIMARY KEY,
+    PupilID NVARCHAR2(9),
     AverageScore_Semester1 NUMBER(1) NOT NULL,
     AverageScore_Semester2 NUMBER(5) NOT NULL,
     FinalAverageScore NVARCHAR2(30) NOT NULL,
@@ -61,8 +61,8 @@ CREATE TABLE ACADEMIC_RESULTS (
     FOREIGN KEY (PupilID) REFERENCES PUPIL(PupilID),
     CONSTRAINT chk_PromotionStatus CHECK (PromotionStatus IN ('Y', 'N')),
     CONSTRAINT chk_Conduct CHECK (Conduct IN ('Excellent', 'Good', 'Average', 'Poor')),
-    CONSTRAINT chk_ResultID CHECK (ResultID LIKE 'R___'),
-    CONSTRAINT chk_PupilID CHECK (PupilID LIKE 'P_____')
+    CONSTRAINT chk_AR_ResultID CHECK (ResultID LIKE 'R___'),
+    CONSTRAINT chk_AR_PupilID CHECK (PupilID LIKE 'P_____')
 );
 
 
